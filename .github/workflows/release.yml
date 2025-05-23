@@ -1,4 +1,4 @@
-name: Tauri Release
+name: Build Tauri App
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - "v*.*.*"
 
 jobs:
-  release:
+  build:
     permissions:
       contents: write
     runs-on: ubuntu-latest
@@ -14,48 +14,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Node
-        uses: actions/setup-node@v4
+      - uses: tauri-apps/tauri-action@v0
         with:
-          node-version: 20
-
-      - name: Set up Rust
-        uses: dtolnay/rust-toolchain@stable
-
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y software-properties-common
-          sudo add-apt-repository universe
-          sudo apt-get update
-          sudo apt-get install -y \
-          libwebkit2gtk-4.0-dev \
-          build-essential \
-          curl \
-          wget \
-          libssl-dev \
-          libgtk-3-dev \
-          libayatana-appindicator3-dev \
-          librsvg2-dev
-
-      - name: Install frontend deps
-        run: npm ci
-
-      - name: Build frontend
-        run: npm run build
-
-      - name: Install Tauri CLI
-        run: cargo install tauri-cli --version ^2.0.0
-
-      - name: Build Tauri app
-        run: cargo tauri build
-
-      - name: Upload artifacts
-        uses: softprops/action-gh-release@v1
-        with:
-          files: |
-            src-tauri/target/release/bundle/deb/*.deb
-            src-tauri/target/release/bundle/appimage/*.AppImage
-            src-tauri/target/release/bundle/tar.gz/*.tar.gz
+          tagName: ${{ github.ref_name }}
+          releaseName: "NoDo ${{ github.ref_name }}"
+          releaseDraft: false
+          prerelease: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
