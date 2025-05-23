@@ -1,4 +1,4 @@
-name: Build Tauri App
+name: Tauri Release
 
 on:
   push:
@@ -16,12 +16,8 @@ jobs:
 
       - uses: tauri-apps/tauri-action@v0
         with:
-          args: build
-          tauriScript: cargo
           projectPath: .
-          tagName: ${{ github.ref_name }}
           releaseName: "NoDo ${{ github.ref_name }}"
-          releaseDraft: false
-          prerelease: false
+          tagName: ${{ github.ref_name }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
