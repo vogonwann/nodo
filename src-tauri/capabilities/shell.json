@@ -1,0 +1,7 @@
+{
+  "identifier": "main-window-shell-access",
+  "description": "Allow shell access for the main window",
+  "local": true,
+  "windows": ["main"],
+  "permissions": ["shell:allow-open", "shell:default"]
+}

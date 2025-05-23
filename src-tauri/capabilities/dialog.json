@@ -1,0 +1,12 @@
+{
+  "identifier": "main-window-dialog-access",
+  "description": "Allow dialog access for the main window",
+  "local": true,
+  "windows": ["main"],
+  "permissions": [
+    "dialog:allow-ask",
+    "dialog:allow-message",
+    "dialog:allow-open",
+    "dialog:allow-save"
+  ]
+}
