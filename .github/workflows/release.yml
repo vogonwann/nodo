@@ -16,6 +16,9 @@ jobs:
 
       - uses: tauri-apps/tauri-action@v0
         with:
+          args: build
+          tauriScript: cargo
+          projectPath: .
           tagName: ${{ github.ref_name }}
           releaseName: "NoDo ${{ github.ref_name }}"
           releaseDraft: false
